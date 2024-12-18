@@ -4,14 +4,10 @@
         <script>
             function uprepmouseclick() {
                 window.open("https://uprep.lol", '_blank').focus();
-                
             }
             function wifiblockclick() {
                 window.open("wifiblocker.html", '_self').focus();
             }
-
-
-            
         </script>
         <title>hi</title>
         <style>
@@ -24,17 +20,50 @@
             .box {
                 height: 50px;
                 margin: 0px;
+                background-color: rgb(11, 121, 157);
+                position: relative;
+            }
+            .dark-blue-bar {
+                height: 20px;
+                margin: 0px;
+                background-color: rgb(0, 72, 96);
+                position: relative;
             }
             body {
                 margin: 0px;
                 background-color: rgb(41, 41, 41);
+            }
+            .scrolling-bar {
+                width: 100%;
+                overflow: hidden;
+                white-space: nowrap;
+                background-color: rgb(0, 72, 96); /* Matches the darker blue */
+                color: #fff;
+                padding: 5px;
+                font-size: medium;
+                position: absolute;
+                top: 5px; /* Positioned within the dark blue bar */
+                box-shadow: none;
+            }
+            .scrolling-text {
+                display: inline-block;
+                animation: scroll 40s linear infinite;
+                font-size: large;
+            }
+            @keyframes scroll {
+                0% {
+                    transform: translateX(100%);
+                }
+                100% {
+                    transform: translateX(-100%);
+                }
             }
             button {
                 background-color: rgb(11, 121, 157);
                 margin-top: 10px;
                 color: white;
                 border: none;
-                padding: 10px 20px;
+                padding: 10px 10px;
                 cursor: pointer;
                 transition: all 0.3s ease;
                 margin-left: 10px;
@@ -44,28 +73,38 @@
             button:hover {
                 background-color: rgb(0, 91, 127);
                 scale: 1.05;
-                
             }
-            
+            .content {
+                margin-top: 20px; /* Ensures enough space for content below the blue bar */
+            }
         </style>
     </head>
     <body>
-        <div class="box", style="background-color: rgb(11, 121, 157);"></div>
-        <div class="box", style="background-color: rgb(0, 72, 96); height: 25px;"></div>
-        <h2 style="top: 1px;">
-            Silly Schedule
-        </h2>
-        <p style="top: 54px; margin-top:0px; color: white; position: absolute;">
-            News barNews barNews barNews barNews barNews barNews barNews barNews barNews barNews barNews bar
-        </p>
-        
-        <button onclick="uprepmouseclick()">
-            <Uprep>
-                uprep.lol
-            </Uprep>
-        </button>
-        <button onclick="wifiblockclick()">
-            Getting around wifi blockers
-        </button>
+        <!-- Light Blue Bar -->
+        <div class="box">
+            <h2 style="top: 1px;">Silly Schedule</h2>
+        </div>
+
+        <!-- Dark Blue Bar with Scrolling Bar -->
+        <div class="dark-blue-bar">
+            <div class="scrolling-bar">
+                <div class="scrolling-text">
+                    New site   -    uprep.lol is cool    -    what came first the chicken or the egg?    -    happy holidays    -    "when one door closes another one opens" Boeing said that    -    how is your day    -    i made cool scrolling bar    -    finals was fun   -    gib charger
+                </div>
+            </div>
+        </div>
+
+        <!-- Content Below -->
+        <div class="content">
+            <button onclick="uprepmouseclick()">
+                <Uprep>
+                    uprep.lol
+                </Uprep>
+            </button>
+            <button onclick="wifiblockclick()">
+                Getting around wifi blockers
+            </button>
+            
+        </div>
     </body>
 </html>
