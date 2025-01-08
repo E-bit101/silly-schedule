@@ -32,20 +32,81 @@
                 document.getElementById("clicky").textContent = clicks
             }
             
-
-            
-            
-
             
 
 
 
-            
+            const schedule = [
+                { start: "08:25", end: "09:35", name: "A block" },
+                { start: "09:35", end: "10:45", name: "Office Hours" },
+                { start: "10:45", end: "11:55", name: "B block" },
+                { start: "11:55", end: "12:30", name: "Lunch" },
+                { start: "12:30", end: "13:40", name: "C block" },
+                { start: "13:40", end: "14:55", name: "D block" },
+                { start: "20:00", end: "22:00", name: "Test Block"},
+                { start: "23:00", end: "23:59", name: "Midnight Homework Grind"}
+            ];
+
+            function getTimeLeft(endTime) {
+                const now = new Date();
+                const end = new Date(now.toDateString() + ' ' + endTime);
+                const diff = end - now;
+
+                if (diff <= 0) return "School is over!";
+
+                const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+                const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                const hours = Math.floor(diff / (1000 * 60 * 60));
+
+                return hours > 0 
+                    ? `${hours} hour(s), ${minutes} minute(s), and ${seconds} second(s)` 
+                    : minutes > 0 
+                    ? `${minutes} minute(s) and ${seconds} second(s)`
+                    : `${seconds} second(s)`;
+            }
+
+            function updateTimers() {
+                const now = new Date();
+                const currentTime = now.getHours() * 60 + now.getMinutes();
+
+                // Calculate time left in the day
+                const dayEnd = new Date(now.toDateString() + ' 14:55'); // 2:55 PM
+                const dayTimeLeft = getTimeLeft(dayEnd.toTimeString().slice(0, 8));
+
+                document.getElementById("day-timer").textContent = `There is ${dayTimeLeft} left in the day.`;
+
+                // Calculate current block and time left
+                let blockTimeLeft = "No ongoing activity";
+
+                for (const block of schedule) {
+                    const [startHours, startMinutes] = block.start.split(":").map(Number);
+                    const [endHours, endMinutes] = block.end.split(":").map(Number);
+
+                    const blockStart = startHours * 60 + startMinutes;
+                    const blockEnd = endHours * 60 + endMinutes;
+
+                    const nowMinutes = now.getHours() * 60 + now.getMinutes();
+                    if (nowMinutes >= blockStart && nowMinutes < blockEnd) {
+                        const blockEndTime = new Date(now.toDateString() + ` ${block.end}`);
+                        blockTimeLeft = `${getTimeLeft(blockEndTime.toTimeString().slice(0, 8))} left in ${block.name}`;
+                        break;
+                    }
+                }
+
+                document.getElementById("block-timer").textContent = `There is ${blockTimeLeft}.`;
+            }
+
+            setInterval(updateTimers, 1000); // Update timers every second
+            updateTimers(); // Initial call to display the timers immediately
 
             
         </script>
         <title>Silly-Schedule</title>
         <style>
+            .timer {
+            font-size: 24px;
+            margin-bottom: 20px;
+            }
             h2 {
                 border: none;
                 margin: 10px;
@@ -157,7 +218,8 @@
     <body>
         
 
-
+        <div class="timer" id="day-timer">There is X amount of time left in the day.</div>
+        <div class="timer" id="block-timer">There is Y amount of time left in [the block/activity].</div>
 
         <div class="box">
             <h2 style="top: 1px;">Silly Schedule</h2>
@@ -201,8 +263,8 @@
             </h2>
             <box style="background-color: grey;">
                 <div class="box1">
-                    <h1>There are x hours until school is over.</h1>
-                    <p>You have y mins left in z block.</p>
+                    <h1 id="day-timer" class="timer">There are x hours until school is over.</h1>
+                    <p id="block-timer" class="timer">You have y mins left in z block.</p>
                 </div>
             </box>
                 
