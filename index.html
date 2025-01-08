@@ -52,7 +52,7 @@
                 const end = new Date(now.toDateString() + ' ' + endTime);
                 const diff = end - now;
 
-                if (diff <= 0) return "School is over!";
+                if (diff <= 0) return "0 hours";
 
                 const seconds = Math.floor((diff % (1000 * 60)) / 1000);
                 const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
@@ -73,7 +73,8 @@
                 const dayEnd = new Date(now.toDateString() + ' 14:55'); // 2:55 PM
                 const dayTimeLeft = getTimeLeft(dayEnd.toTimeString().slice(0, 8));
 
-                document.getElementById("day-timer").textContent = `There is ${dayTimeLeft} left in the day.`;
+                
+                document.getElementById("day-timer").textContent = `There are ${dayTimeLeft} left in the day.`;
 
                 // Calculate current block and time left
                 let blockTimeLeft = "No ongoing activity";
@@ -197,7 +198,7 @@
 
             .box1 p {
                 color: #ffffff;
-                margin-top: 10px;
+                margin-top: 50px;
                 font-size: 1rem;
             }
             .freead {
@@ -217,9 +218,6 @@
     </head>
     <body>
         
-
-        <div class="timer" id="day-timer">There is X amount of time left in the day.</div>
-        <div class="timer" id="block-timer">There is Y amount of time left in [the block/activity].</div>
 
         <div class="box">
             <h2 style="top: 1px;">Silly Schedule</h2>
@@ -245,10 +243,10 @@
                 Getting Around WiFi Blockers
             </button>
             <button onclick="lazerdogegame()">
-                Laser Doge Game
+                Laser Dodge Game
             </button>
             <button onclick="clickerclick()" itemid="clickyclickplsnoautoclick" id="clicky">
-                Click me
+                Click Me
             </button>
             
             <button onclick="timertestlink()">
@@ -264,7 +262,7 @@
             <box style="background-color: grey;">
                 <div class="box1">
                     <h1 id="day-timer" class="timer">There are x hours until school is over.</h1>
-                    <p id="block-timer" class="timer">You have y mins left in z block.</p>
+                    <h1 id="block-timer" class="timer" style="margin-top: 100px;">You have y mins left in z block.</h1>
                 </div>
             </box>
                 
