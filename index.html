@@ -31,6 +31,9 @@
                 clicks = clicks+1
                 document.getElementById("clicky").textContent = clicks
             }
+            function veracross() {
+                window.open("https://portals.veracross.com/uprep/student",'_blank').focus()
+            }
             
             
 
@@ -101,7 +104,7 @@
                 document.getElementById("day-timerper").textContent = `${dayPercentage}%`;
 
                 // Calculate current block and time left
-                let blockTimeLeft = "No ongoing activity";
+                let blockTimeLeft = "no ongoing activitys";
                 let blockPercentage = 0;
 
                 for (const block of schedule) {
@@ -246,7 +249,10 @@
                 border-color: white;
                 border-radius: 10px;
             }
-                        
+            h3 {
+                color: white;
+
+            } 
                     
         </style>
     </head>
@@ -282,6 +288,9 @@
             <button onclick="clickerclick()" itemid="clickyclickplsnoautoclick" id="clicky">
                 Click Me
             </button>
+            <button onclick="veracross()">
+                Veracross
+            </button>
             
             
             
@@ -309,7 +318,10 @@
         </div>
         
         
+        
+            
 
+        </div>
         
     </body>
 </html>
