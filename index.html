@@ -43,8 +43,7 @@
                 { start: "11:55", end: "12:30", name: "Lunch" },
                 { start: "12:30", end: "13:40", name: "C block" },
                 { start: "13:40", end: "14:55", name: "D block" },
-                { start: "20:00", end: "22:00", name: "Test Block"},
-                { start: "23:00", end: "23:59", name: "Midnight Homework Grind"}
+                
             ];
 
             function getTimeLeft(endTime) {
@@ -94,7 +93,7 @@
                     }
                 }
 
-                document.getElementById("block-timer").textContent = `There is ${blockTimeLeft}.`;
+                document.getElementById("block-timer").textContent = `There are ${blockTimeLeft}.`;
             }
 
             setInterval(updateTimers, 1000); // Update timers every second
@@ -262,7 +261,7 @@
             <box style="background-color: grey;">
                 <div class="box1">
                     <h1 id="day-timer" class="timer">There are x hours until school is over.</h1>
-                    <h1 id="block-timer" class="timer" style="margin-top: 100px;">You have y mins left in z block.</h1>
+                    <h1 id="block-timer" class="timer" style="margin-top: 100px; background-color: rgb(34, 129, 0);" >You have y mins left in z block.</h1>
                 </div>
             </box>
                 
