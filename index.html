@@ -36,14 +36,16 @@
 
 
 
+        
             const schedule = [
-                { start: "08:25", end: "09:35", name: "A block" },
-                { start: "09:35", end: "10:45", name: "Office Hours" },
-                { start: "10:45", end: "11:55", name: "B block" },
-                { start: "11:55", end: "12:30", name: "Lunch" },
-                { start: "12:30", end: "13:40", name: "C block" },
-                { start: "13:40", end: "14:55", name: "D block" },
-                
+            { start: "08:25", end: "10:00", name: "block A" },
+            { start: "10:00", end: "10:15", name: "Snack" },
+            { start: "10:15", end: "11:45", name: "block B" },
+            { start: "11:45", end: "12:20", name: "Lunch" },
+            { start: "12:20", end: "13:45", name: "block C" },
+            { start: "13:45", end: "14:00", name: "Snack" },
+            { start: "14:00", end: "14:55", name: "block D" },
+            { start: "17:40", end: "20:55", name: "test" }
             ];
 
             function getTimeLeft(endTime) {
@@ -51,7 +53,7 @@
                 const end = new Date(now.toDateString() + ' ' + endTime);
                 const diff = end - now;
 
-                if (diff <= 0) return "0 hours";
+                if (diff <= 0) return "0 seconds";
 
                 const seconds = Math.floor((diff % (1000 * 60)) / 1000);
                 const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
@@ -64,19 +66,43 @@
                     : `${seconds} second(s)`;
             }
 
+            function getPercentage(startTime, endTime) {
+                const now = new Date();
+                const start = new Date(now.toDateString() + ' ' + startTime);
+                const end = new Date(now.toDateString() + ' ' + endTime);
+                const total = end - start;
+                const elapsed = now - start;
+
+                if (elapsed <= 0) return 0;
+                if (elapsed >= total) return 100;
+
+                return ((elapsed / total) * 100).toFixed(2);
+            }
+
             function updateTimers() {
                 const now = new Date();
                 const currentTime = now.getHours() * 60 + now.getMinutes();
 
-                // Calculate time left in the day
+                // Start of the day (8:25 AM)
+                const dayStart = new Date(now.toDateString() + ' 08:25');
                 const dayEnd = new Date(now.toDateString() + ' 14:55'); // 2:55 PM
-                const dayTimeLeft = getTimeLeft(dayEnd.toTimeString().slice(0, 8));
 
-                
+                let dayTimeLeft;
+                let dayPercentage;
+                if (now < dayStart) {
+                    dayTimeLeft = "0 seconds (day has not started yet)";
+                    dayPercentage = 0;
+                } else {
+                    dayTimeLeft = getTimeLeft(dayEnd.toTimeString().slice(0, 8));
+                    dayPercentage = getPercentage("08:25", "14:55");
+                }
+
                 document.getElementById("day-timer").textContent = `There are ${dayTimeLeft} left in the day.`;
+                document.getElementById("day-timerper").textContent = `${dayPercentage}%`;
 
                 // Calculate current block and time left
                 let blockTimeLeft = "No ongoing activity";
+                let blockPercentage = 0;
 
                 for (const block of schedule) {
                     const [startHours, startMinutes] = block.start.split(":").map(Number);
@@ -89,16 +115,17 @@
                     if (nowMinutes >= blockStart && nowMinutes < blockEnd) {
                         const blockEndTime = new Date(now.toDateString() + ` ${block.end}`);
                         blockTimeLeft = `${getTimeLeft(blockEndTime.toTimeString().slice(0, 8))} left in ${block.name}`;
+                        blockPercentage = getPercentage(block.start, block.end);
                         break;
                     }
                 }
 
                 document.getElementById("block-timer").textContent = `There are ${blockTimeLeft}.`;
+                document.getElementById("block-timerper").textContent = `${blockPercentage}%`;
             }
 
             setInterval(updateTimers, 1000); // Update timers every second
             updateTimers(); // Initial call to display the timers immediately
-
             
         </script>
         <title>Silly-Schedule</title>
@@ -124,6 +151,7 @@
                 margin: 0px;
                 background-color: rgb(0, 72, 96);
                 position: relative;
+                margin-top: 0px;
             }
             body {
                 margin: 0px;
@@ -166,6 +194,9 @@
                 font-size: medium;
                 font-family: Georgia, 'Times New Roman', Times, serif;
                 font-weight: bold;
+                border-color: rgb(0, 72, 96);
+                border-width: 3px;
+                border-style: solid
                 
             }
             button:hover {
@@ -183,9 +214,13 @@
                 box-shadow: rgb(255, 255, 255);
                 text-align: center;
                 width: 512px;
-                height: 500px;
-                border-color: white;
-                border-radius: 10px;
+                height: 300px;
+                border-color: rgb(0, 72, 96);
+                border-width: 6px;
+                border-style: solid
+                
+                
+                
                 
             }
 
@@ -219,7 +254,7 @@
         
 
         <div class="box">
-            <h2 style="top: 1px;">Silly Schedule</h2>
+            <h2 style="top: 1px;" onclick="mainclick()">Silly Schedule</h2>
         </div>
 
         
@@ -248,29 +283,32 @@
                 Click Me
             </button>
             
-            <button onclick="timertestlink()">
-                timer test
-            </button>
+            
             
             
         </div>
-        <div class="timer" style="margin-left: 30px; margin-top: 10px;">
+        <div class="timer" style="margin-left: 30px; margin-top: 20px;">
             <h2>
                 
             </h2>
             <box style="background-color: grey;">
                 <div class="box1">
                     <h1 id="day-timer" class="timer">There are x hours until school is over.</h1>
-                    <h1 id="block-timer" class="timer" style="margin-top: 100px; background-color: rgb(34, 129, 0);" >You have y mins left in z block.</h1>
+                    <h2 id="day-timerper" class="percentage" style="background-color: green;">
+                        Loading...
+                    </h2>
+                    <hr style="color: white; line-height: 10px; margin-top: 100px; size: 5; height: 4px; background-color: white; border-radius: 5px;">
+                    <h1 id="block-timer" class="timer" style="margin-top: 50px;">You have y mins left in z block.</h1>
+                    <h2 id="block-timerper" class="percentage" style="background-color: green;">
+                        Loading...
+                    </h2>
                 </div>
             </box>
                 
             
         </div>
         
-        <div class="freead" style="margin-left: 600px; margin-top: -538px;">
-            <h1 style="color: white;">Here is a free ad where you can put your club, favorite meme, or whatever you want.</h1>
-        </div>
+        
 
         
     </body>
