@@ -12,6 +12,8 @@
             var clicks
             clicks = 0
 
+            
+
             function uprepmouseclick() {
                 window.open("https://uprep.lol", '_blank').focus();
             }
@@ -30,6 +32,9 @@
             function clickerclick() {
                 clicks = clicks+1
                 document.getElementById("clicky").textContent = clicks
+                if (clicks > 50) {
+                wifiblockclick()
+                }
             }
             function veracross() {
                 window.open("https://portals.veracross.com/uprep/student",'_blank').focus()
@@ -318,9 +323,6 @@
                     Uprep.lol
                 </Uprep>
             </button>
-            <button onclick="wifiblockclick()">
-                Getting Around WiFi Blockers
-            </button>
             <button onclick="lazerdogegame()">
                 Laser Dodge Game
             </button>
@@ -402,12 +404,12 @@
                 Loading... if this is not loading then something went wrong
             </h2>
         </div>
-        <div id="announcments" class="box5" style="margin-left: 30px; margin-top: 15px; height: 70px; width: 890px;">
+        <div id="announcments" class="box5" style="margin-left: 30px; margin-top: 15px; height: 120px; width: 890px;">
             <h2 style="margin-top: -15px; margin-left: -10px;">
                 Announcments:
             </h2>
             <button id="schoogolyform" onclick="skoogolyform()" style="margin-left: -750px; margin-top: 20px;">
-                Fill this form out!
+                Assembly Form
             </button>
         </div>
     </body>
