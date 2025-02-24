@@ -116,7 +116,7 @@
                 document.getElementById("day-timerper").textContent = `${dayPercentage}%`;
 
                 // Calculate current block and time left
-                let blockTimeLeft = "no ongoing activitys";
+                let blockTimeLeft = "no ongoing activities";
                 let blockPercentage = 0;
 
                 for (const block of schedule) {
@@ -429,7 +429,7 @@
         </div>
         <div id="countdownbox" class="box5" style="color: white; margin-left: 600px; margin-top: -558px;">
             <h2>
-                Time Until Mid-Winter Break
+                Time Until Spring Break:
             </h2>
             <h2 id="countdown" style="margin-top: 120px; background-color: green; font-weight: bolder;">
                  
@@ -460,7 +460,7 @@
     <script>
         function updateCountdown() {
             // Set the target date and time (March 5th, 2:55 PM)
-            const targetDate = new Date("Febuary 14, 2025 14:55:00").getTime();
+            const targetDate = new Date("April 11, 2025 14:55:00").getTime();
             const now = new Date().getTime();
 
             // Calculate the time difference
