@@ -429,7 +429,7 @@
         </div>
         <div id="countdownbox" class="box5" style="color: white; margin-left: 600px; margin-top: -558px;">
             <h2>
-                Time Until Spring Break:
+                Time Until Summer Break:
             </h2>
             <h2 id="countdown" style="margin-top: 120px; background-color: green; font-weight: bolder;">
                  
@@ -460,14 +460,14 @@
     <script>
         function updateCountdown() {
             // Set the target date and time (March 5th, 2:55 PM)
-            const targetDate = new Date("April 11, 2025 14:55:00").getTime();
+            const targetDate = new Date("June 6, 2025 14:55:00").getTime();
             const now = new Date().getTime();
 
             // Calculate the time difference
             const timeLeft = targetDate - now;
 
             if (timeLeft <= 0) {
-                document.getElementById("countdown").textContent = "Happy Spring Break!!!!!!";
+                document.getElementById("countdown").textContent = "Enjoy your summer:)";
                 return;
             }
 
